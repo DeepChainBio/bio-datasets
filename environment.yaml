@@ -1,7 +1,9 @@
-name: datasets
+name: biodatasets
 channels:
   - conda-forge
   - defaults
 dependencies:
   - python=3.7
   - pre-commit=2.2.0
+  - pip:
+    - -r file:requirements.txt
