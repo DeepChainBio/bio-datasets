@@ -7,7 +7,7 @@ For these datasets, pre-trained contextual embeddings are also available.
 
 
 ## Installation
-Install the required dependencies with `pip install -r requirements.txt`.
+Install the required dependencies with `pip install biodatasets`.
 
 # How it works
 
