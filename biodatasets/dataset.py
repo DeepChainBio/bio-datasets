@@ -35,7 +35,7 @@ class Dataset:
         if force or not self.path.exists():
             pull_dataset(name, force=force)
 
-    def __str__(self) -> str:
+    def __repr__(self) -> str:
         """String representation of the dataset."""
         return f"Dataset(name={self.name}, available_embeddings={self.available_embeddings})"
 
@@ -82,7 +82,10 @@ class Dataset:
         return inputs, targets
 
     def get_embeddings(
-        self, variable_name: str, model_name: str = "esm-1b", embeddings_type: str = "cls"
+        self,
+        variable_name: str,
+        model_name: str = "esm-1b",
+        embeddings_type: str = "cls",
     ) -> np.ndarray:
         """Return a 2D numpy array with the pretrained embeddings for each sequence.
 
@@ -94,7 +97,11 @@ class Dataset:
         Raises:
             ValueError: the embeddings are not available
         """
-        if (variable_name, model_name, embeddings_type) not in self.available_embeddings:
+        if (
+            variable_name,
+            model_name,
+            embeddings_type,
+        ) not in self.available_embeddings:
             msg = f"""The embeddings for the sequence {variable_name} with model {model_name} and type {embeddings_type}
             are not available.
             Embeddings available: {self.available_embeddings}
@@ -115,7 +122,7 @@ def list_datasets() -> List[str]:
     """
     blobs = list_blobs()
     dataset_names = list(set(map(lambda x: x.name.split("/")[0], blobs)))
-    dataset_names = list(filter(lambda x: not x.startswith("test"), dataset_names))
+    # dataset_names = list(filter(lambda x: not x.startswith("test"), dataset_names))
 
     return dataset_names
 

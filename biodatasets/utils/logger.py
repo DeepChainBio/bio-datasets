@@ -34,4 +34,10 @@ def get(name: str) -> logging.Logger:
     logger = logging.getLogger(name)
     logger.setLevel(os.environ.get("LOGLEVEL", "INFO").upper())
 
+    handler = logging.StreamHandler()
+    formatter = logging.Formatter("%(levelname)s: %(message)s")
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    logger.propagate = False
+
     return logger
