@@ -2,9 +2,11 @@ from pathlib import Path
 from typing import List
 from typing import Optional
 from typing import Union
+from urllib.request import urlretrieve
 
 from google.cloud import storage
 from google.cloud.storage import Blob
+from tqdm import tqdm
 
 from biodatasets import CACHE_DIRECTORY
 from biodatasets import ROOT_DIRECTORY
@@ -45,7 +47,6 @@ def pull_dataset(name: str, force: bool = False) -> None:
     """
 
     cache_dataset_directory = get_dataset_path(name)
-
     storage_client = storage.Client.create_anonymous_client()
     datasets_bucket = storage_client.get_bucket(DATASET_BUCKET_NAME)
 
@@ -91,7 +92,13 @@ def download_from_bucket(
 
     if should_download:
         local_file_path.parent.mkdir(exist_ok=True, parents=True)
-        gs_blob.download_to_filename(local_file_path)
+        url = gs_blob.public_url
+        filename = url.split("/")[-1]
+        # gs_blob.download_to_filename(local_file_path) no progress bar
+
+        with TqdmUpTo(unit="B", unit_scale=True, unit_divisor=1024, miniters=1, desc=filename) as t:
+            urlretrieve(url, filename=local_file_path, reporthook=t.update_to)
+
         log.info(
             f"File {bucket_file_path} downloaded from Google Bucket "
             f"'{bucket.name}' at {local_file_path.relative_to(ROOT_DIRECTORY)}"
@@ -103,3 +110,26 @@ def _convert_file_path(file_path: Union[str, Path]) -> Path:
         file_path = Path(file_path)
 
     return file_path
+
+
+class TqdmUpTo(tqdm):
+    """Alternative Class-based version of the above.
+
+    Provides `update_to(n)` which uses `tqdm.update(delta_n)`.
+    Inspired by [twine#242](https://github.com/pypa/twine/pull/242),
+    """
+
+    def update_to(self, b: int = 1, bsize: int = 1, tsize=None):
+        """update
+
+        Args:
+            b  : int, optional
+                Number of blocks transferred so far [default: 1].
+            bsize  : int, optional
+                Size of each block (in tqdm units) [default: 1].
+            tsize  : int, optional
+                Total size (in tqdm units). If [default: None] remains unchanged.
+        """
+        if tsize is not None:
+            self.total = tsize
+        self.update(b * bsize - self.n)  # will also set self.n = b * bsize
