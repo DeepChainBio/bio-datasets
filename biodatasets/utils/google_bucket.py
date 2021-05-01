@@ -33,7 +33,8 @@ def get_dataset_path(name: str) -> Path:
     Args:
         name: name of the dataset
 
-    Returns: Path to cache directory of the dataset
+    Returns:
+        Path to cache directory of the dataset
     """
     return CACHE_DIRECTORY / name
 
@@ -73,6 +74,12 @@ def download_from_bucket(
     If the local_directory is specified the files are downloaded to this directory,
     otherwise the structure of the file path is preserved.
 
+    Args:
+        bucket: bucket from which to download the file
+        bucket_file_path: file path in the bucket
+        local_file_path: path to which we save locally
+        force: whether to force the download or not
+
     Raises:
         FileNotFoundError: if the file does not exist.
     """
@@ -106,6 +113,14 @@ def download_from_bucket(
 
 
 def _convert_file_path(file_path: Union[str, Path]) -> Path:
+    """Optionally convert the file path into Path.
+
+    Args:
+        file_path: file path to convert
+
+    Return:
+        the converted file path
+    """
     if isinstance(file_path, str):
         file_path = Path(file_path)
 
@@ -113,14 +128,14 @@ def _convert_file_path(file_path: Union[str, Path]) -> Path:
 
 
 class TqdmUpTo(tqdm):
-    """Alternative Class-based version of the above.
+    """Alternative class-based version of the above.
 
     Provides `update_to(n)` which uses `tqdm.update(delta_n)`.
     Inspired by [twine#242](https://github.com/pypa/twine/pull/242),
     """
 
-    def update_to(self, b: int = 1, bsize: int = 1, tsize=None):
-        """update
+    def update_to(self, b: int = 1, bsize: int = 1, tsize: Optional[int] = None):
+        """Update function.
 
         Args:
             b  : int, optional
