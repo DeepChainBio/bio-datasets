@@ -11,7 +11,7 @@ from pathlib import Path
 CURRENT_DIRECTORY = Path(__file__).resolve().parent
 ROOT_DIRECTORY = CURRENT_DIRECTORY.parent
 
-CACHE_DIRECTORY = ROOT_DIRECTORY / ".cache"
+CACHE_DIRECTORY = CURRENT_DIRECTORY / ".cache"
 
 from .dataset import list_datasets  # noqa: E402
 from .dataset import load_dataset  # noqa: E402

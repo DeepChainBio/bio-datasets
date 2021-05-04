@@ -19,16 +19,14 @@ log = logger.get(__name__)
 
 
 class Dataset:
-    """
-    Dataset class.
-    """
+    """Dataset class."""
 
     def __init__(self, name: str, force: bool = False):
-        """
-        Init the Dataset instance by fetching the dataset files.
+        """Init the Dataset instance by fetching the dataset files.
 
-        :param name: name of the dataset
-        :param force: force fetching the dataset
+        Args:
+            name: name of the dataset
+            force: force fetching the dataset
         """
         self.name = name
         self.path = get_dataset_path(name)
@@ -41,7 +39,7 @@ class Dataset:
 
     @property
     def csv_path(self) -> Path:
-        """Path to the CSV file"""
+        """Path to the CSV file."""
         return self.path / "dataset.csv"
 
     @property
@@ -53,12 +51,14 @@ class Dataset:
     def to_npy_arrays(
         self, input_names: List[str], target_names: Optional[List[str]] = None
     ) -> Tuple[List[np.ndarray], Optional[List[np.ndarray]]]:
-        """
-        Load dataset inputs and targets into numpy arrays.
+        """Load dataset inputs and targets into numpy arrays.
 
-        :param input_names: list of input column names
-        :param target_names: list of target column names
-        :return: list of inputs arrays and targets arrays
+        Args:
+            input_names: list of input column names
+            target_names: list of target column names
+
+        Return:
+            list of inputs arrays and targets arrays
 
         Raises:
             ValueError: one or several columns are not available
@@ -89,10 +89,13 @@ class Dataset:
     ) -> np.ndarray:
         """Return a 2D numpy array with the pretrained embeddings for each sequence.
 
-        :param variable_name: name of the sequence variable
-        :param model_name: name of the model from which come the embeddings
-        :param embeddings_type: type of the embeddings
-        :return: list of inputs arrays and targets arrays
+        Args:
+            variable_name: name of the sequence variable
+            model_name: name of the model from which come the embeddings
+            embeddings_type: type of the embeddings
+
+        Return:
+            list of inputs arrays and targets arrays
 
         Raises:
             ValueError: the embeddings are not available
@@ -118,7 +121,8 @@ class Dataset:
 def list_datasets() -> List[str]:
     """List all the datasets in the bucket.
 
-    :return: list of the datasets
+    Return:
+        list of the datasets
     """
     blobs = list_blobs()
     dataset_names = list(set(map(lambda x: x.name.split("/")[0], blobs)))
@@ -130,9 +134,12 @@ def list_datasets() -> List[str]:
 def load_dataset(name: str, force: bool = False) -> Optional[Dataset]:
     """Load a bio-dataset.
 
-    :param name: name of the dataset
-    :param force: force fetching the dataset
-    :return: a Dataset instance
+    Args:
+        name: name of the dataset
+        force: force fetching the dataset
+
+    Return:
+        a Dataset instance
     """
     if name not in list_datasets():
         log.error(f"Dataset {name} does not exist.")
