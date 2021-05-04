@@ -16,8 +16,7 @@ from biodatasets import list_datasets, load_dataset
 
 print(list_datasets())
 
-my_dataset = load_dataset('test')
-X, y = my_dataset.to_npy_arrays(input_names=['peptide'], target_names=['target'])
-
-embeddings = my_dataset.get_embeddings(variable_name="peptide", model_name="protbert", embeddings_type="cls")
+pathogen = load_dataset("pathogen")
+X, y = pathogen.to_npy_arrays(input_names=["sequence"], target_names=["class"])
+embeddings = pathogen.get_embeddings("sequence", "protbert", "cls")
 ```
