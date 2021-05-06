@@ -24,7 +24,7 @@ In order to make a dataset available with the `bio-datasets` API, you need to:
       ```
 For now, only this format (`.csv` + `.npy` files for embeddings) is supported. The plan is to integrate different formats in the next weeks!
 
-### Project setup :nerd:
+### Project setup :nerd_face:
 
 - create the conda environment
 ```bash
