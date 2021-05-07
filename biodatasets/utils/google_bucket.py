@@ -9,7 +9,6 @@ from google.cloud.storage import Blob
 from tqdm import tqdm
 
 from biodatasets import CACHE_DIRECTORY
-from biodatasets import ROOT_DIRECTORY
 from biodatasets.utils import logger
 
 log = logger.get(__name__)
@@ -51,9 +50,7 @@ def pull_dataset(name: str, force: bool = False) -> None:
     storage_client = storage.Client.create_anonymous_client()
     datasets_bucket = storage_client.get_bucket(DATASET_BUCKET_NAME)
 
-    log.info(
-        f"Start downloading {name} dataset in {cache_dataset_directory.relative_to(ROOT_DIRECTORY)} ..."
-    )
+    log.info(f"Start downloading {name} dataset in {cache_dataset_directory} ...")
     file_paths = [blob.name for blob in datasets_bucket.list_blobs(prefix=f"{name}/")]
 
     for file_path in file_paths:
@@ -108,7 +105,7 @@ def download_from_bucket(
 
         log.info(
             f"File {bucket_file_path} downloaded from Google Bucket "
-            f"'{bucket.name}' at {local_file_path.relative_to(ROOT_DIRECTORY)}"
+            f"'{bucket.name}' at {local_file_path}"
         )
 
 
