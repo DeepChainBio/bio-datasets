@@ -138,15 +138,19 @@ class Dataset:
             print(description_file.read())
 
 
-def list_datasets() -> List[str]:
+def list_datasets(include_tests: bool = False) -> List[str]:
     """List all the datasets in the bucket.
+
+    Args:
+        include_tests: include test datasets in the list
 
     Return:
         list of the datasets
     """
     blobs = list_blobs()
     dataset_names = list(set(map(lambda x: x.name.split("/")[0], blobs)))
-    # dataset_names = list(filter(lambda x: not x.startswith("test"), dataset_names))
+    if not include_tests:
+        dataset_names = list(filter(lambda x: not x.startswith("test"), dataset_names))
 
     return dataset_names
 
@@ -161,7 +165,9 @@ def load_dataset(name: str, force: bool = False) -> Optional[Dataset]:
     Return:
         a Dataset instance
     """
-    if name not in list_datasets():
+    available_datasets = list_datasets(include_tests="test" in name)
+
+    if name not in available_datasets:
         log.error(f"Dataset {name} does not exist.")
         return None
 
