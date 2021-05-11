@@ -35,7 +35,7 @@ class Dataset:
 
     def __repr__(self) -> str:
         """String representation of the dataset."""
-        return f"Dataset(name={self.name}, available_embeddings={self.available_embeddings})"
+        return f"Dataset(name={self.name}, available_columns={self.available_columns}, available_embeddings={self.available_embeddings})"
 
     @property
     def csv_path(self) -> Path:
@@ -43,10 +43,25 @@ class Dataset:
         return self.path / "dataset.csv"
 
     @property
+    def description_path(self) -> Path:
+        """Path to the description.md file."""
+        return self.path / "description.md"
+
+    @property
     def available_embeddings(self) -> Set[Tuple[str, str, str]]:
         """Return the available embeddings (column_name, model_name, type) for the dataset."""
         stems = [fp.stem.replace("_embeddings", "") for fp in self.path.glob("*_embeddings.npy")]
         return {tuple(stem.split("_")) for stem in stems}  # type: ignore
+
+    @property
+    def available_columns(self) -> List[str]:
+        """Return the available columns in the dataset."""
+        available_columns = pd.read_csv(self.csv_path, nrows=0).columns.tolist()
+
+        # filter in case the column names include the index
+        available_columns = list(filter(lambda x: x != "Unnamed: 0", available_columns))
+
+        return available_columns
 
     def to_npy_arrays(
         self, input_names: List[str], target_names: Optional[List[str]] = None
@@ -117,16 +132,25 @@ class Dataset:
 
         return embeddings
 
+    def display_description(self) -> None:
+        """Display the description of the dataset."""
+        with open(self.description_path, "r") as description_file:
+            print(description_file.read())
 
-def list_datasets() -> List[str]:
+
+def list_datasets(include_tests: bool = False) -> List[str]:
     """List all the datasets in the bucket.
+
+    Args:
+        include_tests: include test datasets in the list
 
     Return:
         list of the datasets
     """
     blobs = list_blobs()
     dataset_names = list(set(map(lambda x: x.name.split("/")[0], blobs)))
-    # dataset_names = list(filter(lambda x: not x.startswith("test"), dataset_names))
+    if not include_tests:
+        dataset_names = list(filter(lambda x: not x.startswith("test"), dataset_names))
 
     return dataset_names
 
@@ -141,7 +165,9 @@ def load_dataset(name: str, force: bool = False) -> Optional[Dataset]:
     Return:
         a Dataset instance
     """
-    if name not in list_datasets():
+    available_datasets = list_datasets(include_tests="test" in name)
+
+    if name not in available_datasets:
         log.error(f"Dataset {name} does not exist.")
         return None
 

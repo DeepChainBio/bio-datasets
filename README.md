@@ -27,9 +27,18 @@ from biodatasets import list_datasets, load_dataset
 
 print(list_datasets())
 
+# Load your dataset
 pathogen = load_dataset("pathogen")
+
+# Display the available columns and embeddings
+print(pathogen)
+
+# Get data from your dataset
 X, y = pathogen.to_npy_arrays(input_names=["sequence"], target_names=["class"])
 embeddings = pathogen.get_embeddings("sequence", "protbert", "cls")
+
+# Get a full description of your dataset
+pathogen.display_description()
 ```
 
 # How to contribute
