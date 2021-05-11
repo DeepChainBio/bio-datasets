@@ -1,0 +1,23 @@
+{
+  "name": "Human vs. Pathogen",
+  "desc": "96K  human and pathogen proteins sequences",
+  "updated": "April 20 2021",
+  "count": "96k",
+  "id": 9,
+  "tags": {
+    "tasks": [
+      "imunogenicity",
+      "classifier"
+    ],
+    "libraries": [
+      "pytorch"
+    ],
+    "embeddings": [
+      "prot_bert"
+    ],
+    "datasets": [
+      "pathogen",
+      "human"
+    ]
+  }
+}
