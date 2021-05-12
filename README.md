@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="50%" src="./.source/_static/deepchain.png">
+  <img width="50%" src="https://raw.githubusercontent.com/DeepChainBio/bio-datasets/main/.source/_static/deepchain.png">
 </p>
 
 
