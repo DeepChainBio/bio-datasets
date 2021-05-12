@@ -42,6 +42,8 @@ git push -u origin contribute/name-of-your-dataset
 ```
 
 9. Go to the webpage of your fork on GitHub. Click on "Pull request" and use the PR template [_new_dataset_pull_request_template.md_](./.github/PULL_REQUEST_TEMPLATE/new_dataset_pull_request_template.md).
+   
+> You can directly create the PR by copy/pasting https://github.com/DeepChainBio/bio-datasets/compare/main...contribute/name-of-your-dataset?template=new_dataset_pull_request_template.md&title=Contribute+%3Cdataset_name%3E+&labels=dataset with the name of your branch instead of `contribute/name-of-your-dataset`.
 
 10. Complete the check-list and wait for your PR to be reviewed, and your dataset to be added.
 
