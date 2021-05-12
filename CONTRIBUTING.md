@@ -41,7 +41,7 @@ git rebase upstream/main
 git push -u origin contribute/name-of-your-dataset
 ```
 
-9. Go to the webpage of your fork on GitHub. Click on "Pull request" and choose the PR template _new_dataset_pull_request_template.md_.
+9. Go to the webpage of your fork on GitHub. Click on "Pull request" and use the PR template [_new_dataset_pull_request_template.md_](./.github/PULL_REQUEST_TEMPLATE/new_dataset_pull_request_template.md).
 
 10. Complete the check-list and wait for your PR to be reviewed, and your dataset to be added.
 
