@@ -27,10 +27,10 @@ Label:
 ```python
 from biodatasets import load_dataset
 
-pathogen_dataset = load_dataset("binding")
+dataset = load_dataset("antibodybinding")
 
-X, y = pathogen_dataset.to_npy_array(input_names=["sequence","cdr1","cdr2","cdr3"], target_names=["binding"])
-cdr1_embeddings = pathogen_dataset.get_embeddings("sequence", "protbert", "cdr1")
+X, y = dataset.to_npy_arrays(input_names=["sequence","CDR1","CDR2","CDR3"], target_names=["binding"])
+cdr1_embeddings = dataset.get_embeddings("CDR1", "protbert", "cls")
 ```
 
 ### Supported Tasks
