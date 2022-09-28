@@ -127,7 +127,7 @@ class Dataset:
             raise ValueError(msg)
 
         embeddings = np.load(
-            self.path / f"{variable_name}_{model_name}_{embeddings_type}_embeddings.npy"
+            self.path / f"{variable_name}_{model_name}_{embeddings_type}_embeddings.npy", allow_pickle=True
         )
 
         return embeddings
