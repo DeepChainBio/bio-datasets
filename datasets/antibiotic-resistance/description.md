@@ -26,7 +26,8 @@ Label:
 from biodatasets import load_dataset
 dataset = load_dataset("antibiotic-resistance")
 X, y = dataset.to_npy_arrays(input_names=["sequence"], target_names=["label"])
-cls_embeddings = dataset.get_embeddings("sequence", "esm1_t34_670M_UR100", "cls")
+cls_embeddings = dataset.get_embeddings("sequence", "esm1-t34-670M-UR100", "cls")
+mean_embeddings = dataset.get_embeddings("sequence", "esm1-t34-670M-UR100", "mean")
 ```
 
 ### Supported Tasks
