@@ -23,10 +23,10 @@ Label:
 ```python
 from biodatasets import load_dataset
 
-swissprot_dataset = load_dataset("swissProt")
+dataset = load_dataset("swissProt")
 
-X, y = swissprot_dataset.to_npy_array(["sequence"])
-mean_embeddings = swissprot_dataset.get_embeddings("sequence", "esm1b", "mean")
+X, y = dataset.to_npy_arrays(["sequence"])
+mean_embeddings = dataset.get_embeddings("sequence", "esm1b", "mean")
 
 ```
 
