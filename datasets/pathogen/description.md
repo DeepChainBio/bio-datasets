@@ -26,7 +26,7 @@ from biodatasets import load_dataset
 
 pathogen_dataset = load_dataset("pathogen")
 
-X, y = pathogen_dataset.to_npy_array(input_names=["sequence"], target_names=["class"])
+X, y = pathogen_dataset.to_npy_arrays(input_names=["sequence"], target_names=["class"])
 cls_embeddings = pathogen_dataset.get_embeddings("sequence", "protbert", "cls")
 ```
 
