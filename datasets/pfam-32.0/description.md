@@ -24,10 +24,10 @@ Label:
 ```python
 from biodatasets import load_dataset
 
-pathogen_dataset = load_dataset("pfam-32.0")
+dataset = load_dataset("pfam-32.0")
 
-X, y = pathogen_dataset.to_npy_array(input_names=["sequence", "sequence_name", "split"], target_names=["family_id"])
-cls_embeddings = pathogen_dataset.get_embeddings("sequence", "protbert", "mean")
+X, y = dataset.to_npy_arrays(input_names=["sequence", "sequence_name", "split"], target_names=["family_id"])
+cls_embeddings = dataset.get_embeddings("sequence", "protbert", "mean")
 ```
 
 ### Supported Tasks
