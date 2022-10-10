@@ -12,11 +12,11 @@
 
 #### Google bucket
 - [ ] I have created a folder with the name of my dataset in the :file_cabinet: [_buffer_ google bucket](https://console.cloud.google.com/storage/browser/deepchain-datasets-buffer). :warning: You must be authenticated with a gmail account.
-- [ ] I have uploaded `descrition.md`, `info.json` and `dataset.csv`, as well as all the _embeddings_ files.
+- [ ] I have uploaded `description.md`, `info.json` and `dataset.csv`, as well as all the _embeddings_ files.
 
 #### Github
 - [ ] I have added a folder with the name of my dataset in [`datasets/`](../../datasets).
-- [ ] I have added the `descrition.md` file in my dataset folder.
+- [ ] I have added the `description.md` file in my dataset folder.
 - [ ] I have added a reviewer to this pull request. Reviewers: @delfosseaurelien or @theomeb.
 
 :tada: Congrats, your dataset is going to be reviewed and will soon be pushed to this [bucket](https://console.cloud.google.com/storage/browser/deepchain-datasets-public) and available with the API. :rocket:
